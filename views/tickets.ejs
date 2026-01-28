@@ -1,0 +1,40 @@
+<%- include('header') %>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1>Public Tickets</h1>
+        <a href="/submit" class="btn small-btn">Create New</a>
+    </div>
+
+    <% if (tickets.length===0) { %>
+        <div
+            style="text-align: center; padding: 3rem; background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border);">
+            <p>No tickets submit yet. Be the first!</p>
+        </div>
+        <% } else { %>
+            <div class="ticket-grid">
+                <% tickets.forEach(ticket=> { %>
+                    <div class="ticket-card">
+                        <div class="ticket-header">
+                            <span class="status-badge status-<%= ticket.status.replace(' ', '') %>">
+                                <%= ticket.status %>
+                            </span>
+                            <small style="color: var(--text-muted)">
+                                <%= new Date(ticket.created_at).toLocaleDateString() %>
+                            </small>
+                        </div>
+                        <h3>
+                            <%= ticket.name %>
+                        </h3>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+                            <%= ticket.description %>
+                        </p>
+                        <div
+                            style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: var(--text-muted);">
+                            From: <%= ticket.email %>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <% } %>
+
+                <%- include('footer') %>

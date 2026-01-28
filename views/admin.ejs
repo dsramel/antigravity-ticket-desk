@@ -1,0 +1,74 @@
+<%- include('header') %>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1>Admin Dashboard</h1>
+        <a href="/admin/logout" class="btn btn-danger small-btn">Logout</a>
+    </div>
+
+    <div class="admin-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tickets.forEach(ticket=> { %>
+                    <tr>
+                        <td>
+                            <%= new Date(ticket.created_at).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <div>
+                                <%= ticket.name %>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted)">
+                                <%= ticket.email %>
+                            </div>
+                        </td>
+                        <td style="max-width: 300px;">
+                            <%= ticket.description %>
+                        </td>
+                        <td>
+                            <span class="status-badge status-<%= ticket.status.replace(' ', '') %>">
+                                <%= ticket.status %>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <form action="/admin/ticket/<%= ticket.id %>/update" method="POST"
+                                    style="background: none; border: none; padding: 0; box-shadow: none;">
+                                    <select name="status" onchange="this.form.submit()"
+                                        style="padding: 0.25rem 0.5rem; width: auto; font-size: 0.85rem;">
+                                        <option value="Open" <%=ticket.status==='Open' ? 'selected' : '' %>>Open
+                                        </option>
+                                        <option value="In Progress" <%=ticket.status==='In Progress' ? 'selected' : ''
+                                            %>>In Progress</option>
+                                        <option value="Closed" <%=ticket.status==='Closed' ? 'selected' : '' %>>Closed
+                                        </option>
+                                    </select>
+                                </form>
+                                <form action="/admin/ticket/<%= ticket.id %>/delete" method="POST"
+                                    style="background: none; border: none; padding: 0; box-shadow: none;"
+                                    onsubmit="return confirm('Delete this ticket?');">
+                                    <button type="submit" class="btn btn-danger small-btn"
+                                        style="padding: 0.25rem 0.5rem;">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                        <% if (tickets.length===0) { %>
+                            <tr>
+                                <td colspan="5" style="text-align: center;">No tickets found.</td>
+                            </tr>
+                            <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include('footer') %>

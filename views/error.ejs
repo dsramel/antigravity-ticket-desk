@@ -1,0 +1,23 @@
+<%- include('header') %>
+
+    <div style="text-align: center; padding: 4rem 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+        <h1 style="color: var(--danger); margin-bottom: 1rem;">System Error</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+            <%= error.message %>
+        </p>
+        <div
+            style="background-color: var(--card-bg); padding: 1rem; border-radius: var(--radius); display: inline-block; text-align: left; margin-bottom: 2rem;">
+            <p style="font-family: monospace; color: var(--text-muted);">Error Code: <%= error.code %>
+            </p>
+            <% if (error.path) { %>
+                <p style="font-family: monospace; color: var(--text-muted);">Path: <%= error.path %>
+                </p>
+                <% } %>
+        </div>
+        <div>
+            <a href="/" class="btn">Try Again</a>
+        </div>
+    </div>
+
+    <%- include('footer') %>

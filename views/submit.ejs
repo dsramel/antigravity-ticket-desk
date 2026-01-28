@@ -1,0 +1,28 @@
+<%- include('header') %>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h1>Submit a New Ticket</h1>
+        <p>Describe your issue below and we'll get back to you.</p>
+    </div>
+
+    <form action="/submit" method="POST">
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Issue Description</label>
+            <textarea id="description" name="description" rows="5" required
+                placeholder="What seems to be the problem?"></textarea>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%">Submit Ticket</button>
+    </form>
+
+    <%- include('footer') %>
